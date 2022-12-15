@@ -7,6 +7,8 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
+TextEditingController _step = new TextEditingController();
+
 class _HomePageState extends State<HomePage> {
   int _counter = 0;
   void increment() {
@@ -41,7 +43,7 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     Container(
                       height: 60,
-                      width: 100,
+                      width: 120,
                       child: ElevatedButton(
                           onPressed: () {},
                           style: ElevatedButton.styleFrom(
@@ -80,7 +82,7 @@ class _HomePageState extends State<HomePage> {
               Padding(
                 padding: EdgeInsets.all(8),
                 child: Text(
-                  "Number of steps",
+                  "Number of Turns",
                   style: TextStyle(
                       fontSize: 30,
                       color: Colors.blue,
@@ -88,67 +90,79 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               SizedBox(
-                height: 50,
+                height: 30,
               ),
-              Container(
-                width: 170,
-                // color: Colors.black,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          increment();
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                              border:
-                                  Border.all(width: 2, color: Colors.black)),
-                          child: Center(
-                            child: Icon(
-                              Icons.add,
-                              size: 40,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Container(
-                          decoration: BoxDecoration(
-                              border:
-                                  Border.all(width: 2, color: Colors.black)),
-                          width: 50,
-                          height: 43,
-                          child: Center(
-                              child: Text(
-                            '$_counter',
-                            style: TextStyle(fontSize: 30),
-                          ))),
-                      GestureDetector(
-                        onTap: () {
-                          decrement();
-                        },
-                        child: Center(
-                          child: Container(
-                              width: 50,
-                              height: 43,
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                      width: 2, color: Colors.black)),
-                              child: Center(
-                                child: Text(
-                                  "-",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.normal,
-                                      fontSize: 50),
-                                ),
-                              )),
-                        ),
-                      )
-                    ],
+              // Container(
+              //   width: 170,
+              //   // color: Colors.black,
+              //   child: Padding(
+              //     padding: const EdgeInsets.all(8.0),
+              //     child: Row(
+              //       mainAxisAlignment: MainAxisAlignment.center,
+              //       crossAxisAlignment: CrossAxisAlignment.center,
+              //       children: [
+              //         GestureDetector(
+              //           onTap: () {
+              //             increment();
+              //           },
+              //           child: Container(
+              //             decoration: BoxDecoration(
+              //                 border:
+              //                     Border.all(width: 2, color: Colors.black)),
+              //             child: Center(
+              //               child: Icon(
+              //                 Icons.add,
+              //                 size: 40,
+              //               ),
+              //             ),
+              //           ),
+              //         ),
+              //         Container(
+              //             decoration: BoxDecoration(
+              //                 border:
+              //                     Border.all(width: 2, color: Colors.black)),
+              //             width: 50,
+              //             height: 43,
+              //             child: Center(
+              //                 child: Text(
+              //               '$_counter',
+              //               style: TextStyle(fontSize: 30),
+              //             ))),
+              //         GestureDetector(
+              //           onTap: () {
+              //             decrement();
+              //           },
+              //           child: Center(
+              //             child: Container(
+              //                 width: 50,
+              //                 height: 43,
+              //                 decoration: BoxDecoration(
+              //                     border: Border.all(
+              //                         width: 2, color: Colors.black)),
+              //                 child: Center(
+              //                   child: Text(
+              //                     "-",
+              //                     style: TextStyle(
+              //                         fontWeight: FontWeight.normal,
+              //                         fontSize: 50),
+              //                   ),
+              //                 )),
+              //           ),
+              //         )
+              //       ],
+              //     ),
+              //   ),
+              // ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
+                  controller: _step,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Enter Any Positive Number',
                   ),
+                  keyboardType: TextInputType.text,
+                  cursorRadius: const Radius.circular(15),
                 ),
               ),
               SizedBox(
@@ -158,7 +172,11 @@ class _HomePageState extends State<HomePage> {
                 height: 60,
                 width: 100,
                 child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      setState(() {
+                        _counter = _step.text.trim() as int;
+                      });
+                    },
                     style: ElevatedButton.styleFrom(
                       shape: new RoundedRectangleBorder(
                         borderRadius: new BorderRadius.circular(50.0),
